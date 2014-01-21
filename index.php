@@ -9,7 +9,7 @@ $app->get('/', function() use ($app) {
     processMessage($message, $app);
 });
 
-$app->get('/api', function() use ($app) {
+$app->get('/api(/)', function() use ($app) {
     $message = "shit";
     processMessage($message, $app);
 });
@@ -19,7 +19,7 @@ $app->get('/api/shit(/:count)', function($count = 1) use ($app) {
   for ($i = 0; $i < $count; $i++)
     $message .= "shit ";
   processMessage($message, $app);
-});
+})->conditions(array('count' => '\d+'));
 
 $app->get('/api/shit/:name', function($name) use ($app) {
     $message = "$name is shit";
@@ -72,9 +72,10 @@ $app->run();
 function processMessage($message, &$slimApp) {
   $accept = strtolower($slimApp->request->headers->Accept);
   if (strpos($accept, 'json') !== FALSE) {
-  $slimApp->contentType('application/json');
+    $slimApp->contentType('application/json');
     echo jsonEncodeMessage($message);
   } else {
+    $slimApp->contentType('text/plain');
     echo $message;
   }
 }

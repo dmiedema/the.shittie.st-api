@@ -25,7 +25,7 @@ message: 'shit'
 
 ### /shit/:count
 
-message: 'shit' :count number of times
+message: 'shit' :count number of times. Maximum of 5000 shits.
 
 ### /shit/:name
 

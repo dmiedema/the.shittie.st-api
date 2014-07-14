@@ -16,6 +16,7 @@ $app->get('/api(/)', function() use ($app) {
 
 $app->get('/api/shit(/:count)', function($count = 1) use ($app) {
   $message = "";
+  $count = $count % 5000;
   for ($i = 0; $i < $count; $i++)
     $message .= "shit ";
   processMessage($message, $app);
